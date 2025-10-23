@@ -10,3 +10,9 @@ Ideas for build.tcl were received from:
 - https://www.fpgadeveloper.com/2014/08/version-control-for-vivado-projects.html/
 
 The last part of build.tcl, for building the block design from the design_1.tcl file, was written using help from Perplexity.
+
+Run build.tcl from Vivado->Tools->Run TCL
+
+A neorv32_project folder should be made at the same directory as the build.tcl file.
+
+You should be able to generate the bitstream after running synthesis.
