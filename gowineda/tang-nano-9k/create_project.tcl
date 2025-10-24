@@ -151,6 +151,15 @@ regsub -all {gpio_o\s*?<=\s*?con_gpio_out\s*?\(\s*?[0-9]+\s+downto\s+0\s*?\)} $f
 # IO_GPIO_NUM from 8 to 6
 regsub -all {IO_GPIO_NUM\s*=>\s*8,} $fc {IO_GPIO_NUM       => 6,} fc
 
+# IMEM_SIZE       : natural := 32*1024;   -- size of processor-internal instruction memory in bytes
+regsub -all {IMEM_SIZE\s*:\s*natural\s*:=\s*[0-9\*]+;} \
+  $fc {IMEM_SIZE       : natural := 32*1024;} fc
+
+# DMEM_SIZE       : natural := 16*1024;   -- size of processor-internal data memory in bytes
+regsub -all {DMEM_SIZE\s*:\s*natural\s*:=\s*[0-9\*]+} \
+  $fc {DMEM_SIZE       : natural := 16*1024} fc
+
+
 set fd [open $project_dir/src/neorv32_test_setup_bootloader.vhd w]
 puts -nonewline $fd $fc
 close $fd

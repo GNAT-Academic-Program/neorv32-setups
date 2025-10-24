@@ -44,6 +44,40 @@ set fileset_constraints [glob ./*.xdc]
 set fileset_sim [list ./../../neorv32/sim/neorv32_tb.vhd ./../../neorv32/sim/sim_uart_rx.vhd]
 
 # Add source files
+# --- Import and patch NEORV32 bootloader template for Basys3 ---
+set neorv32_dir "./../../neorv32"
+set src_file "$neorv32_dir/rtl/test_setups/neorv32_test_setup_bootloader.vhd"
+set dst_file "$outputdir/neorv32_test_setup_bootloader.vhd"
+
+if {[file exists $src_file]} {
+    puts "Reading and patching $src_file for Basys3..."
+    set fd [open $src_file r]
+    set fc [read $fd]
+    close $fd
+
+    # Adjust IMEM size
+    regsub -all {IMEM_SIZE\s*:\s*natural\s*:=\s*[0-9\*]+;} \
+        $fc {IMEM_SIZE       : natural := 32*1024;} fc
+
+    # Adjust DMEM size
+    regsub -all {DMEM_SIZE\s*:\s*natural\s*:=\s*[0-9\*]+} \
+        $fc {DMEM_SIZE       : natural := 16*1024} fc
+
+    # Invert reset polarity
+    regsub -all {rstn_i\s*=>\s*rstn_i} \
+        $fc {rstn_i      => not(rstn_i)} fc
+
+    # Write the modified copy into the project folder
+    set out_fd [open $dst_file w]
+    puts -nonewline $out_fd $fc
+    close $out_fd
+    puts "Patched file written to $dst_file"
+} else {
+    puts "Source file $src_file not found — skipping patch."
+}
+
+# Make Vivado use the patched copy
+set fileset_design $dst_file
 
 ## Design
 add_files $fileset_design
