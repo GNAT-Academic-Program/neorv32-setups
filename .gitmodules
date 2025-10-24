@@ -9,3 +9,6 @@
 [submodule "neorv32-hal"]
 	path = neorv32-hal
 	url = https://github.com/GNAT-Academic-Program/neorv32-hal.git
+[submodule "vivado/vivado-board-dependencies"]
+	path = vivado/vivado-board-dependencies
+	url = https://github.com/jwyffels2/vivado-board-dependencies.git

@@ -1,7 +1,7 @@
 # Simple bitstream programming script for Basys3
 # Usage: vivado -mode batch -source program_bitstream.tcl
 
-open_hw
+open_hw_manager
 connect_hw_server
 open_hw_target
 

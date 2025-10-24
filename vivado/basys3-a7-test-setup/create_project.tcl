@@ -2,6 +2,14 @@
 # Usage: vivado -mode batch -source create_project.tcl
 
 set board "basys3"
+# Directory of this Tcl script (works in GUI/batch)
+set script_dir [file dirname [file normalize [info script]]]
+
+# Build absolute path from the script location + relative
+set repo_abs   [file normalize [file join $script_dir .. vivado-board-dependencies new board_files]]
+
+# Set it
+set_param board.repoPaths [list $repo_abs]
 
 # Create and clear output directory
 set outputdir work
@@ -25,7 +33,7 @@ switch $board {
 # Create project
 create_project -part $a7part $a7prj $outputdir
 
-#set_property board_part digilentinc.com:${board}:part0:1.1 [current_project]
+set_property board_part digilentinc.com:${board}:part0:1.2 [current_project]
 set_property target_language VHDL [current_project]
 
 # Define filesets
@@ -91,3 +99,4 @@ add_files -fileset sim_1 $fileset_sim
 # Run synthesis, implementation and bitstream generation
 launch_runs impl_1 -to_step write_bitstream -jobs 4
 wait_on_run impl_1
+set_param board.repoPaths “”

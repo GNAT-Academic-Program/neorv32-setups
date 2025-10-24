@@ -1,2 +1,6 @@
 *.bin
 **/bin
+**.log
+**.jou
+vivado/dfx_runtime.txt
+vivado/work/

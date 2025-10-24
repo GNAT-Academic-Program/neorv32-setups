@@ -23,7 +23,39 @@ It uses a modified version of the simplified [`neorv32_test_setup_bootloader.vhd
 
 ## Usage
 
-### 1. Generate the Bitstream
+### 1. Set Up the Repository
+
+Run the following command from your top-level project directory to clone the repository:
+
+```bash
+git clone https://github.com/GNAT-Academic-Program/neorv32-setups
+```
+
+Next, move the working directory to the repository:
+
+```bash
+cd neorv32-setups
+```
+
+Fetch the latest git changes:
+
+```bash
+git fetch
+```
+
+Update the submodules recursively:
+
+```bash
+git submodule update --init --recursive
+```
+
+Finally, move the working directory to the basys3-a7-test-setup folder:
+
+```bash
+cd vivado/basys3-a7-test-setup
+```
+
+### 2. Generate the Bitstream
 
 Run the following command from this directory to create the Vivado project and generate the bitstream:
 
@@ -34,9 +66,9 @@ vivado -mode batch -source create_project.tcl
 This will:
 - Create a `work/` directory with the Vivado project
 - Run synthesis and implementation
-- Generate the bitstream at: `work/basys3-test-setup.runs/impl_1/basys3-test-setup.bit`
+- Generate the bitstream at: `work/basys3-test-setup.runs/impl_1/neorv32_test_setup_bootloader.bit`
 
-### 2. Program the FPGA
+### 3. Program the FPGA
 
 You can program the FPGA using either:
 
@@ -53,7 +85,7 @@ vivado -mode batch -source program_bitstream.tcl
 ### 3. Connect via UART
 
 - The Basys3 board's USB-UART interface will appear as a serial port on your computer
-- Connect using a terminal program (e.g., PuTTY, minicom, screen) at **19200 baud, 8N1**
+- Connect using a terminal program (e.g., VS Code Serial Monitor, PuTTY) at **19200 baud, 8N1**
 - Press the center button (BTNC) to reset the processor
 - You should see the NEORV32 bootloader prompt
 
