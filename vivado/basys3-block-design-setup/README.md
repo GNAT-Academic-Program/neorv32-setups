@@ -3,7 +3,7 @@ Note:
 - The build.tcl is an older version that does not work on Windows. In Windows it would create the project in the AppRoaming folder and fail in block creation. it is solely for reference.
 The block design TCL file includes a clocking wizard and the necessary connections.
 
-The NEORV32 can be re-configured for additional functionality (more GPIO, UART, DMEM size, etc.)
+The NEORV32 can be re-configured for additional functionality (more GPIO, UART, DMEM size, etc.) in the block design page.
 
 Ideas for build.tcl were received from:
 - https://www.reddit.com/r/FPGA/comments/p81p9f/how_to_transfer_a_vivado_project_using_tcl/
